@@ -10,12 +10,16 @@ import de.pandadoxo.dox_gadgets.core.GadgetCore;
 import de.pandadoxo.dox_gadgets.player.GPlayerConfig;
 import de.pandadoxo.dox_gadgets.util.ColorUtil;
 import de.pandadoxo.dox_gadgets.util.FilesUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 
-public final class Main extends JavaPlugin {
+public final class Main extends JavaPlugin implements Listener {
 
     private static String PREFIX = "§7| §e§lGadgets §8» §r";
     private static String TOKEN = "change_this_token_to_whatever_you_want";
@@ -54,6 +58,7 @@ public final class Main extends JavaPlugin {
 
 
         getCommand("open_gadgets").setExecutor(new OpenCmd());
+        Bukkit.getPluginManager().registerEvents(this,this);
 
     }
 
@@ -69,7 +74,12 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        filesUtil.save();
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        filesUtil.save();
     }
 
     public static Main getInstance() {
