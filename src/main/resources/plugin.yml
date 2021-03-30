@@ -1,0 +1,8 @@
+name: Dox_Gadgets
+version: ${project.version}
+main: de.pandadoxo.dox_gadgets.Main
+api-version: 1.15
+authors: [Pandadoxo]
+
+commands:
+  open_gadgets:
